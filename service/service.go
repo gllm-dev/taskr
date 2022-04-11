@@ -1,4 +1,4 @@
-package taskrsrv
+package service
 
 import (
 	"go.gllm.dev/trackr/domain/errors"
