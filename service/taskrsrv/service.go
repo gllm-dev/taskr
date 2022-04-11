@@ -1,7 +1,6 @@
 package taskrsrv
 
 import (
-	"go.gllm.dev/trackr/domain/errors"
 	"go.gllm.dev/trackr/domain/task"
 	"go.gllm.dev/trackr/ports"
 	"time"
@@ -18,6 +17,11 @@ func New(repo ports.TaskrRepository) *service {
 }
 
 func (srv *service) AddTask(name string, tags ...string) error {
+	_, err := srv.GetTask(name)
+	if err == nil {
+		return task.ErrTaskExists
+	}
+
 	t := task.NewTask(name, tags...)
 	return srv.repo.Create(t)
 }
@@ -30,7 +34,7 @@ func (srv *service) FinishTask(name string) error {
 
 	slotsLen := len(t.TimeSlots)
 	if slotsLen == 0 {
-		return errors.ErrNoTimeSlots
+		return task.ErrNoTimeSlots
 	}
 
 	if t.TimeSlots[slotsLen-1].End == nil {
@@ -48,15 +52,15 @@ func (srv *service) ResumeTask(name string) error {
 	}
 
 	if t.Finished {
-		return errors.ErrTaskFinished
+		return task.ErrTaskFinished
 	}
 	slotsLen := len(t.TimeSlots)
 	if slotsLen == 0 {
-		return errors.ErrNoTimeSlots
+		return task.ErrNoTimeSlots
 	}
 
 	if t.TimeSlots[slotsLen-1].End == nil {
-		return errors.ErrSlotNotFinished
+		return task.ErrSlotNotFinished
 	}
 
 	t.TimeSlots = append(t.TimeSlots, *task.NewTimeSlot())
@@ -70,11 +74,11 @@ func (srv *service) PauseTask(name string) error {
 	}
 	slotsLen := len(t.TimeSlots)
 	if slotsLen == 0 {
-		return errors.ErrNoTimeSlots
+		return task.ErrNoTimeSlots
 	}
 
 	if t.TimeSlots[slotsLen-1].End != nil {
-		return errors.ErrSlotFinished
+		return task.ErrSlotFinished
 	}
 
 	now := time.Now()

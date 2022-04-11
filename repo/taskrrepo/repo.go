@@ -25,14 +25,11 @@ func New() (*repo, error) {
 func (r *repo) Create(t *task.Task) error {
 	return r.db.Update(func(tx *bbolt.Tx) error {
 		b := tx.Bucket([]byte("tasks"))
-
-		// Marshal user data into bytes.
 		buf, err := json.Marshal(t)
 		if err != nil {
 			return err
 		}
 
-		// Persist bytes to users bucket.
 		return b.Put([]byte(t.Name), buf)
 	})
 }
@@ -41,26 +38,25 @@ func (r *repo) Get(name string, t *task.Task) error {
 	return r.db.View(func(tx *bbolt.Tx) error {
 		b := tx.Bucket([]byte("tasks"))
 		v := b.Get([]byte(name))
+		if v == nil {
+			return task.ErrTaskNotExists
+		}
 		return json.Unmarshal(v, &t)
 	})
 }
 func (r *repo) Update(t *task.Task) error {
 	return r.db.Update(func(tx *bbolt.Tx) error {
 		b := tx.Bucket([]byte("tasks"))
-
-		// Marshal user data into bytes.
 		buf, err := json.Marshal(t)
 		if err != nil {
 			return err
 		}
 
-		// Persist bytes to users bucket.
 		return b.Put([]byte(t.Name), buf)
 	})
 }
 func (r *repo) List(ts *[]task.Task) error {
 	return r.db.View(func(tx *bbolt.Tx) error {
-		// Assume bucket exists and has keys
 		b := tx.Bucket([]byte("tasks"))
 		if err := b.ForEach(func(k, v []byte) error {
 			var t task.Task

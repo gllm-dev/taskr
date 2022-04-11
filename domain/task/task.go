@@ -51,5 +51,5 @@ func (t *Task) Fmt() string {
 	if t.Finished {
 		status = "finished"
 	}
-	return fmt.Sprintf("Task %s: is %s with %s tracked time", t.Name, status, duration.String())
+	return fmt.Sprintf("%s: is %s with %s tracked time", t.Name, status, duration.String())
 }
