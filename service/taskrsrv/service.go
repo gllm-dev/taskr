@@ -32,6 +32,10 @@ func (srv *service) FinishTask(name string) error {
 		return err
 	}
 
+	if t.Finished {
+		return task.ErrTaskFinished
+	}
+
 	slotsLen := len(t.TimeSlots)
 	if slotsLen == 0 {
 		return task.ErrNoTimeSlots
@@ -54,6 +58,7 @@ func (srv *service) ResumeTask(name string) error {
 	if t.Finished {
 		return task.ErrTaskFinished
 	}
+	
 	slotsLen := len(t.TimeSlots)
 	if slotsLen == 0 {
 		return task.ErrNoTimeSlots
@@ -72,6 +77,11 @@ func (srv *service) PauseTask(name string) error {
 	if err != nil {
 		return err
 	}
+
+	if t.Finished {
+		return task.ErrTaskFinished
+	}
+
 	slotsLen := len(t.TimeSlots)
 	if slotsLen == 0 {
 		return task.ErrNoTimeSlots

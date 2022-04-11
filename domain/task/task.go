@@ -34,20 +34,17 @@ func NewTask(name string, tags ...string) *Task {
 }
 
 func (t *Task) Fmt() string {
-	paused := false
+	status := "paused"
 	var duration time.Duration
 	for _, tt := range t.TimeSlots {
 		if tt.End != nil {
 			duration += tt.End.Sub(tt.Start)
 		} else {
 			duration += time.Now().Sub(tt.Start)
-			paused = true
+			status = "not paused"
 		}
 	}
-	status := "paused"
-	if !paused {
-		status = "not " + status
-	}
+
 	if t.Finished {
 		status = "finished"
 	}
