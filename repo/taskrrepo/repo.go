@@ -1,7 +1,6 @@
-package repo
+package taskrrepo
 
 import (
-	"encoding/binary"
 	"encoding/json"
 	"go.etcd.io/bbolt"
 	"go.gllm.dev/trackr/domain/task"
@@ -11,7 +10,7 @@ type repo struct {
 	db *bbolt.DB
 }
 
-func NewRepo() (*repo, error) {
+func New() (*repo, error) {
 	db, err := bbolt.Open("my.db", 0600, nil)
 	if err != nil {
 		return nil, err
@@ -21,12 +20,6 @@ func NewRepo() (*repo, error) {
 		_, err := tx.CreateBucketIfNotExists([]byte("tasks"))
 		return err
 	})
-}
-
-func itob(v int) []byte {
-	b := make([]byte, 8)
-	binary.BigEndian.PutUint64(b, uint64(v))
-	return b
 }
 
 func (r *repo) Create(t *task.Task) error {

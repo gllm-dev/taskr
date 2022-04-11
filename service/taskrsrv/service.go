@@ -1,4 +1,4 @@
-package service
+package taskrsrv
 
 import (
 	"go.gllm.dev/trackr/domain/errors"
@@ -7,22 +7,22 @@ import (
 	"time"
 )
 
-type Service struct {
-	repo ports.Repo
+type service struct {
+	repo ports.TaskrRepository
 }
 
-func NewService(repo ports.Repo) *Service {
-	return &Service{
+func New(repo ports.TaskrRepository) *service {
+	return &service{
 		repo: repo,
 	}
 }
 
-func (srv *Service) AddTask(name string, tags ...string) error {
+func (srv *service) AddTask(name string, tags ...string) error {
 	t := task.NewTask(name, tags...)
 	return srv.repo.Create(t)
 }
 
-func (srv *Service) FinishTask(name string) error {
+func (srv *service) FinishTask(name string) error {
 	t, err := srv.GetTask(name)
 	if err != nil {
 		return err
@@ -41,7 +41,7 @@ func (srv *Service) FinishTask(name string) error {
 	return srv.repo.Update(&t)
 }
 
-func (srv *Service) ResumeTask(name string) error {
+func (srv *service) ResumeTask(name string) error {
 	t, err := srv.GetTask(name)
 	if err != nil {
 		return err
@@ -63,7 +63,7 @@ func (srv *Service) ResumeTask(name string) error {
 	return srv.repo.Update(&t)
 }
 
-func (srv *Service) PauseTask(name string) error {
+func (srv *service) PauseTask(name string) error {
 	t, err := srv.GetTask(name)
 	if err != nil {
 		return err
@@ -83,13 +83,13 @@ func (srv *Service) PauseTask(name string) error {
 	return srv.repo.Update(&t)
 }
 
-func (srv *Service) GetTask(name string) (task.Task, error) {
+func (srv *service) GetTask(name string) (task.Task, error) {
 	var t task.Task
 	err := srv.repo.Get(name, &t)
 	return t, err
 }
 
-func (srv *Service) ListTasks() ([]task.Task, error) {
+func (srv *service) ListTasks() ([]task.Task, error) {
 	var ts []task.Task
 	err := srv.repo.List(&ts)
 	return ts, err

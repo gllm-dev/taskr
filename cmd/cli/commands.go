@@ -6,7 +6,7 @@ import (
 	"go.gllm.dev/trackr/ports"
 )
 
-func NewCmdAdd(s ports.Service) *cobra.Command {
+func NewCmdAdd(s ports.TaskrService) *cobra.Command {
 	return &cobra.Command{
 		Use:   "add",
 		Short: "add task",
@@ -21,7 +21,7 @@ func NewCmdAdd(s ports.Service) *cobra.Command {
 	}
 }
 
-func NewCmdPause(s ports.Service) *cobra.Command {
+func NewCmdPause(s ports.TaskrService) *cobra.Command {
 	return &cobra.Command{
 		Use:   "pause",
 		Short: "pause task",
@@ -34,7 +34,7 @@ func NewCmdPause(s ports.Service) *cobra.Command {
 	}
 }
 
-func NewCmdResume(s ports.Service) *cobra.Command {
+func NewCmdResume(s ports.TaskrService) *cobra.Command {
 	return &cobra.Command{
 		Use:   "resume",
 		Short: "resume task",
@@ -47,7 +47,7 @@ func NewCmdResume(s ports.Service) *cobra.Command {
 	}
 }
 
-func NewCmdFinish(s ports.Service) *cobra.Command {
+func NewCmdFinish(s ports.TaskrService) *cobra.Command {
 	return &cobra.Command{
 		Use:   "finish",
 		Short: "finish task",
@@ -60,7 +60,7 @@ func NewCmdFinish(s ports.Service) *cobra.Command {
 	}
 }
 
-func NewCmdGet(s ports.Service) *cobra.Command {
+func NewCmdGet(s ports.TaskrService) *cobra.Command {
 	return &cobra.Command{
 		Use:   "get",
 		Short: "get task",
@@ -78,7 +78,7 @@ func NewCmdGet(s ports.Service) *cobra.Command {
 	}
 }
 
-func NewCmdList(s ports.Service) *cobra.Command {
+func NewCmdList(s ports.TaskrService) *cobra.Command {
 	return &cobra.Command{
 		Use:   "list",
 		Short: "list tasks",

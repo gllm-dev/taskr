@@ -2,18 +2,18 @@ package main
 
 import (
 	"go.gllm.dev/trackr/cmd/cli"
-	repo2 "go.gllm.dev/trackr/repo"
-	"go.gllm.dev/trackr/service"
+	"go.gllm.dev/trackr/repo/taskrrepo"
+	"go.gllm.dev/trackr/service/taskrsrv"
 	"log"
 )
 
 func main() {
-	repo, err := repo2.NewRepo()
+	repo, err := taskrrepo.New()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	service := service.NewService(repo)
+	service := taskrsrv.New(repo)
 	rootCmd := cli.NewCmdRoot(service)
 
 	if err := rootCmd.Execute(); err != nil {

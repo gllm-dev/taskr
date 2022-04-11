@@ -5,7 +5,7 @@ import (
 	"go.gllm.dev/trackr/ports"
 )
 
-func NewCmdRoot(service ports.Service) *cobra.Command {
+func NewCmdRoot(service ports.TaskrService) *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "Taskr",
 		Short: "Root command",
