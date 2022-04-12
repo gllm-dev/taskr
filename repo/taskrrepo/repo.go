@@ -2,6 +2,9 @@ package taskrrepo
 
 import (
 	"encoding/json"
+	"os"
+	"os/user"
+	"path/filepath"
 
 	"go.etcd.io/bbolt"
 	"go.gllm.dev/taskr/domain/task"
@@ -12,7 +15,23 @@ type repo struct {
 }
 
 func New() (*repo, error) {
-	db, err := bbolt.Open("my.db", 0600, nil)
+	curUser, err := user.Current()
+	if err != nil {
+		return nil, err
+	}
+	taskPath := filepath.Join(curUser.HomeDir, ".taskr")
+	dbPath := filepath.Join(taskPath, "my.db")
+
+	if _, err := os.Stat(taskPath); err != nil {
+		if os.IsNotExist(err) {
+			err = os.Mkdir(taskPath, os.ModePerm)
+		}
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	db, err := bbolt.Open(dbPath, 0600, nil)
 	if err != nil {
 		return nil, err
 	}
