@@ -1,10 +1,11 @@
 package main
 
 import (
-	"go.gllm.dev/trackr/cmd/cli"
-	"go.gllm.dev/trackr/repo/taskrrepo"
-	"go.gllm.dev/trackr/service/taskrsrv"
 	"log"
+
+	"go.gllm.dev/taskr/cmd/cli"
+	"go.gllm.dev/taskr/repo/taskrrepo"
+	"go.gllm.dev/taskr/service/taskrsrv"
 )
 
 func main() {

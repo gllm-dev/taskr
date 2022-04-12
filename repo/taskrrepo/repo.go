@@ -2,8 +2,9 @@ package taskrrepo
 
 import (
 	"encoding/json"
+
 	"go.etcd.io/bbolt"
-	"go.gllm.dev/trackr/domain/task"
+	"go.gllm.dev/taskr/domain/task"
 )
 
 type repo struct {

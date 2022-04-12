@@ -1,9 +1,10 @@
 package taskrsrv
 
 import (
-	"go.gllm.dev/trackr/domain/task"
-	"go.gllm.dev/trackr/ports"
 	"time"
+
+	"go.gllm.dev/taskr/domain/task"
+	"go.gllm.dev/taskr/ports"
 )
 
 type service struct {
@@ -58,7 +59,7 @@ func (srv *service) ResumeTask(name string) error {
 	if t.Finished {
 		return task.ErrTaskFinished
 	}
-	
+
 	slotsLen := len(t.TimeSlots)
 	if slotsLen == 0 {
 		return task.ErrNoTimeSlots

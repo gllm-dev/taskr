@@ -2,8 +2,9 @@ package cli
 
 import (
 	"fmt"
+
 	"github.com/spf13/cobra"
-	"go.gllm.dev/trackr/ports"
+	"go.gllm.dev/taskr/ports"
 )
 
 func NewCmdAdd(s ports.TaskrService) *cobra.Command {

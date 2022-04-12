@@ -1,6 +1,6 @@
 package ports
 
-import "go.gllm.dev/trackr/domain/task"
+import "go.gllm.dev/taskr/domain/task"
 
 type TaskrRepository interface {
 	Create(t *task.Task) error

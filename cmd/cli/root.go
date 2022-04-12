@@ -2,7 +2,7 @@ package cli
 
 import (
 	"github.com/spf13/cobra"
-	"go.gllm.dev/trackr/ports"
+	"go.gllm.dev/taskr/ports"
 )
 
 func NewCmdRoot(service ports.TaskrService) *cobra.Command {
