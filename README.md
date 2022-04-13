@@ -1,3 +1,4 @@
+[![Go Report Card](https://goreportcard.com/badge/go.gllm.dev/taskr)](https://goreportcard.com/report/go.gllm.dev/taskr)
 # Taskr
 
 A simple task time tracker for terminal built in golang
