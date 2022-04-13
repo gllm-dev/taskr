@@ -7,7 +7,7 @@ import (
 
 func NewCmdRoot(service ports.TaskrService) *cobra.Command {
 	cmd := &cobra.Command{
-		Use:   "Taskr",
+		Use:   "taskr",
 		Short: "Root command",
 	}
 	cmd.AddCommand(NewCmdAdd(service))
