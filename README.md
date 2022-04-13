@@ -2,6 +2,20 @@
 
 A simple task time tracker for terminal built in golang
 
+## Usage
+-   taskr [command]
+
+### Available Commands
+-   `add [task_name]`        add task
+-   `finish [task_name]`      finish task
+-   `get [task_name]`         get task
+-   `list`                              list tasks
+-   `pause [task_name]`    pause task
+-   `resume [task_name]`  resume task
+
+### Example
+`taskr add mytask`
+
 ## Installation
 
 ### From release
